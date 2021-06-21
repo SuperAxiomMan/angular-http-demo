@@ -1,18 +1,20 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-  url: string = 'http://localhost:3000/posts';
+  url: string = '';
 
-
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   createEntity(entity: any): Observable<Object> {
-    return this.http.post(this.url, entity);
+    return this.http
+      .post(this.url, entity)
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   loadEntity(): Observable<Object> {
@@ -25,5 +27,14 @@ export class DataService {
 
   deleteEntity(entity: any): Observable<Object> {
     return this.http.delete(`${this.url}/${entity.id}`);
+  }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.log('Error', error.error.message);
+    } else {
+      console.log('Backend Error', error.status);
+    }
+    return throwError('Something Wrong Happened!');
   }
 }

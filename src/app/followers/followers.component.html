@@ -1,0 +1,31 @@
+<!-- <div>
+    <ul class="list-group">
+      <li
+        *ngFor="let follower of followers"
+        class="list-group-item"
+      >
+        {{ follower.login }}
+        <a href="{{ follower.html_url }}">View Github</a>
+        
+        <img src="{{follower.avatar_url}}" alt="">
+      </li>
+    </ul>
+</div> -->
+
+<div class="row row-cols-5 row-cols-md-4 g-4">
+  <div class="col" *ngFor="let follower of followers">
+    <div class="card" >
+      <img
+        class="card-img-top"
+        src="{{ follower.avatar_url }}"
+        alt="{{ follower.html_url }} Card image cap"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ follower.login }}</h5>
+        <a href="{{ follower.html_url }}" class="btn btn-primary"
+          >View Github</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,8 +10,7 @@ import { PostService } from '../services/post.service';
 export class PostsComponent implements OnInit {
   posts: any;
 
-  constructor(private http: HttpClient, private PostService:PostService) {
-  }
+  constructor(private http: HttpClient, private PostService: PostService) {}
 
   ngOnInit(): void {
     this.loadPosts();
@@ -33,19 +32,17 @@ export class PostsComponent implements OnInit {
   }
 
   updatePost(post: any) {
-    post.isRead=!post.isRead;
-    this.PostService.updateEntity(post)
-      .subscribe((response) => {
-        console.log('updated!');
-        this.loadPosts();
-      });
+    post.isRead = !post.isRead;
+    this.PostService.updateEntity(post).subscribe((response) => {
+      console.log('updated!');
+      this.loadPosts();
+    });
   }
-  
+
   deletePost(post: any) {
-    this.PostService.deleteEntity(post)
-      .subscribe((response) => {
-        console.log('deleted!');
-        this.loadPosts();
-      });
+    this.PostService.deleteEntity(post).subscribe((response) => {
+      console.log('deleted!');
+      this.loadPosts();
+    });
   }
 }

@@ -1,5 +1,24 @@
-<div class="container">
-  <div><input type="text" #title (keydown.enter)="addPost(title)" /></div>
+<div class="input-group">
+  <input
+    #title
+    (keydown.enter)="addPost(title)"
+    type="text"
+    class="form-control"
+    placeholder="Add a new post"
+    aria-label="post title"
+  />
+  <div class="input-group-append">
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      #title
+      (click)="addPost(title)"
+    >
+      Add
+    </button>
+  </div>
+</div>
+<div>
   <ul class="list-group">
     <li
       *ngFor="let post of posts"
